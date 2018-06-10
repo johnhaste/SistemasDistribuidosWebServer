@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -19,9 +20,13 @@ namespace Web.Controllers
             return baseDeLivros;
         }*/
 
-        public JsonResult GetAllLivros()
+        public string GetAllLivros()
         {
-            return baseDeLivros;
+
+            //Newtonsoft.Json.JsonConvert.SerializeObject(new { foo = "bar" });
+
+            // return baseDeLivros.ToString();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(baseDeLivros);
         }
 
         public Livro GetLivroById(int id)
