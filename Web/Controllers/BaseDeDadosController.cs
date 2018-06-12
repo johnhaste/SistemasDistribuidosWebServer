@@ -24,10 +24,21 @@ namespace Web.Controllers
         // GET: api/BaseDeDados
         public Object[] Get()
         {
+            //EXEMPLO MUDANDO UMA PROPRIEDADE IN MEMORY
+            //LocalController.MudaIdLocal();
+            //return locais;
+            
+            //Cria um array maior somando o tamanho de todos
+            Object[] BaseDeDados = new Object[locais.Length + hospedagens.Length];
 
-            LocalController.MudaIdLocal();
-            return locais;
-            //return new string[] { "value1", "value2" };
+            //Copia o primeiro array de locais para o novo array grandão
+            //(quem, para onde, quantos elementos)
+            Array.Copy(locais, BaseDeDados, locais.Length);
+
+            //Copia o segundo array de hospedagens para o novo array grandão
+            Array.Copy(hospedagens, 0, BaseDeDados, locais.Length, hospedagens.Length);
+            
+            return BaseDeDados;
         }
 
         // GET: api/BaseDeDados/5

@@ -36,9 +36,5 @@ namespace TourismWeb.Models
             return locais;
         }
 
-        public void MudaNome(String nome)
-        {
-            Nome = nome;
-        }
     }
 }
