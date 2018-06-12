@@ -20,7 +20,7 @@ namespace TourismWeb.Models
         public string Estado { get; set; }
         public string Pais { get; set; }
 
-        internal Local[] RetornaLocais()
+        public Local[] RetornaLocais()
         {
             var locais = new Local[]
             {
@@ -34,6 +34,11 @@ namespace TourismWeb.Models
             };
             
             return locais;
+        }
+
+        public void MudaNome(String nome)
+        {
+            Nome = nome;
         }
     }
 }

@@ -10,11 +10,15 @@ namespace Web.Controllers
 {
     public class LocalController : ApiController
     {
-        public Local[] locais = new Local().RetornaLocais();
+        public static Local[] locais = new Local().RetornaLocais();
         
         public Local[] RetornaLocais()
         {
             return locais;
+        }
+
+        public static void MudaIdLocal() {
+            locais[0].Id = locais[0].Id - 1;
         }
 
         // GET: api/Local

@@ -8,6 +8,7 @@ using Web;
 
 namespace Web.Controllers
 {
+
     public class BaseDeDadosController : ApiController
     {
         public static Object[] locais = new LocalController().RetornaLocais();
@@ -17,13 +18,15 @@ namespace Web.Controllers
         //public static Object[] ticketHospedagens = new HospedagemController().retornaTicketsHospedagens();
 
         public static Object[] viagens = new ViagemController().RetornaViagens();
-        public static Object[] compraViagens = new CompraViagemController().retornaComprasViagens();
+        public static Object[] compraViagens = new CompraViagemController().RetornaComprasViagens();
         //public static Object[] ticketViagens = new HospedagemController().retornaTicketsViagens();
 
         // GET: api/BaseDeDados
         public Object[] Get()
         {
-            return hospedagens;
+
+            LocalController.MudaIdLocal();
+            return locais;
             //return new string[] { "value1", "value2" };
         }
 
@@ -48,4 +51,26 @@ namespace Web.Controllers
         {
         }
     }
+
+    //Tentativa de Interface para usar locais[0].id = 4
+    /*
+     * public interface ILocal
+    {
+        int Id { get; set; }
+        string Nome { get; set; }
+        string Cidade { get; set; }
+        string Estado { get; set; }
+        string Pais { get; set; }
+    }
+    */
+
+    public class ILocal
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Cidade { get; set; }
+        public string Estado { get; set; }
+        public string Pais { get; set; }
+    }
+
 }
