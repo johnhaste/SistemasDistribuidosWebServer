@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -22,12 +23,13 @@ namespace Web.Controllers
         //public static Object[] ticketViagens = new HospedagemController().retornaTicketsViagens();
 
         // GET: api/BaseDeDados
-        public Object[] Get()
+        public string Get()
         {
             //EXEMPLO MUDANDO UMA PROPRIEDADE IN MEMORY
             //LocalController.MudaIdLocal();
-            //return locais;
-            
+            //string locaisJson = JsonConvert.SerializeObject(locais);
+
+            /*
             //Cria um array maior somando o tamanho de todos
             Object[] BaseDeDados = new Object[locais.Length + hospedagens.Length];
 
@@ -39,6 +41,13 @@ namespace Web.Controllers
             Array.Copy(hospedagens, 0, BaseDeDados, locais.Length, hospedagens.Length);
             
             return BaseDeDados;
+            */
+
+
+            string locaisJson = JsonConvert.SerializeObject(locais);
+
+            return " 'locais' : " + locaisJson;
+            
         }
 
         // GET: api/BaseDeDados/5
