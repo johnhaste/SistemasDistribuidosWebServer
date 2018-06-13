@@ -38,9 +38,12 @@ namespace Web.Controllers
             if (hospedagens.SingleOrDefault(i => i.Id == id).QuartosDisponiveis >= quartos)
             {
                 hospedagens.SingleOrDefault(i => i.Id == id).QuartosDisponiveis -= quartos;
+                return hospedagens.SingleOrDefault(i => i.Id == id).QuartosDisponiveis;
             }
-           
-            return hospedagens.SingleOrDefault(i => i.Id == id).QuartosDisponiveis;
+
+            //Caso não dê
+            return -1;
+            
         }
         
         // POST: api/Hospedagem

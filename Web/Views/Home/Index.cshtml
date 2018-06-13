@@ -106,9 +106,8 @@
             type: 'GET',
             success: function (response) {
 
-                if (response == document.getElementById("quartosDisponiveis" + idHospedagemAtual).innerHTML) {
-                    document.getElementById("quartosDisponiveis" + idHospedagemAtual).innerHTML = response;
-                    document.getElementById("respostaHospedagem" + idHospedagemAtual).innerHTML = "Não foi possível comprar o número desejado";
+                if (response == -1) {
+                    document.getElementById("respostaHospedagem" + idHospedagemAtual).innerHTML = "Não foi possível comprar o número desejado (Atualize a Página)";
                 } else {
                     document.getElementById("quartosDisponiveis" + idHospedagemAtual).innerHTML = response;
                     document.getElementById("respostaHospedagem" + idHospedagemAtual).innerHTML = "Sucesso";
@@ -123,7 +122,7 @@
 
         var qtdPessoas = document.getElementById("QtdPessoasViagem" + idViagemAtual).value;
         //alert(qtdPessoas + " pessoas compraram para viagem " + idViagemAtual);
-        ]
+        
         $.ajax({
             url: 'http://localhost:64421/api/Viagem/' + idViagemAtual + '/' + qtdPessoas,
             type: 'GET',
