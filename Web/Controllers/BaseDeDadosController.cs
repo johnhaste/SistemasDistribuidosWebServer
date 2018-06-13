@@ -19,7 +19,7 @@ namespace Web.Controllers
         //public static Object[] ticketHospedagens = new HospedagemController().retornaTicketsHospedagens();
 
         public static Object[] viagens = new ViagemController().RetornaViagens();
-        public static Object[] compraViagens = new CompraViagemController().RetornaComprasViagens();
+        //public static Object[] compraViagens = new CompraViagemController().RetornaComprasViagens();
         //public static Object[] ticketViagens = new HospedagemController().retornaTicketsViagens();
 
         // GET: api/BaseDeDados

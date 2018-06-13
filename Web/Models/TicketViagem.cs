@@ -14,8 +14,8 @@ namespace TourismWeb.Models
     
     public class TicketViagem
     {
-        public System.Guid Id { get; set; }
+        public int Id { get; set; }
         public string NomePassageiro { get; set; }
-        public System.Guid IdCompraViagem { get; set; }
+        public int IdCompraViagem { get; set; }
     }
 }

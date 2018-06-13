@@ -88,10 +88,14 @@
                 "<br> Origem: " + LocalOrigem +
                 "<br> Destino: " + LocalDestino + 
                 "<br> Passagens Disponíveis: <span id='passagensDisponiveis" + viagemAtual.Id + "'>" + viagemAtual.QtdDisponivel + "</span>" +
-                "<br> Pessoas: <input id='QtdPessoasViagem" + viagemAtual.Id + "'>" +
+                "<br> Número de Pessoas: <input id='QtdPessoasViagem" + viagemAtual.Id + "'>" +  
+                "<br> Nome das Pessoas (Separado por vírgula) <input id='NomePessoasViagem" + viagemAtual.Id + "'> " + 
+                "<br> Parcelamento <input text='1' id='ParcelamentoViagem" + viagemAtual.Id + "'> " +
+                "<br> Número Cartão <input text='1' id='NumeroCartaoViagem" + viagemAtual.Id + "'> " +
+                "<br> Código Cartão <input text='1' id='CodCartaoViagem" + viagemAtual.Id + "'> " +
                 "<br> <button id = '" + viagemAtual.Id + "' onClick='ComprarViagem(this.id)'>Finalizar Compra</button>" +
                 "<br> <span id='respostaViagem" + viagemAtual.Id + "'></div > <br>";
-
+            
         }
 
     }
@@ -121,8 +125,20 @@
     function ComprarViagem(idViagemAtual) {
 
         var qtdPessoas = document.getElementById("QtdPessoasViagem" + idViagemAtual).value;
-        //alert(qtdPessoas + " pessoas compraram para viagem " + idViagemAtual);
+        var nomePessoa = document.getElementById("NomePessoasViagem" + idViagemAtual).value;
+        var parcelamento = document.getElementById("ParcelamentoViagem" + idViagemAtual).value;
+        var numeroCartao = document.getElementById("NumeroCartaoViagem" + idViagemAtual).value;
+        var codCartao = document.getElementById("CodCartaoViagem" + idViagemAtual).value;
         
+        //api/CompraViagem/{nomeCliente}/{Parcelamento}/{NumeroCartao}/{CodCartao}/{IdViagem}
+        $.ajax({
+            url: 'http://localhost:64421/api/CompraViagem/' + nomePessoa + "/" + parcelamento + "/" + numeroCartao + "/" + codCartao +"/" + idViagemAtual,
+            type: 'GET',
+            success: function (response) {
+                alert(response.Id);
+            }
+        });
+
         $.ajax({
             url: 'http://localhost:64421/api/Viagem/' + idViagemAtual + '/' + qtdPessoas,
             type: 'GET',
@@ -138,7 +154,7 @@
 
             }
         });
-
+        
     }
 
     
@@ -155,8 +171,12 @@
 
     <h2>Viagens</h2>
     <div id="Viagens"></div>
-
     <hr />
+
+    <h2>Compras de Viagens</h2>
+    <div id="CompraViagens"></div>
+
+
     <div id="Teste"></div>
 
 
