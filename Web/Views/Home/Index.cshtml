@@ -1,34 +1,51 @@
 ﻿<script>
+    var locais = new Array();
 
-    /*function ListaPassagens() {
-        $.getJSON("https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json", function (json) {
-            $("#NumeroDePassagens").text(json.members.length);
-            for (var k in json.members) {
-                document.getElementById("ListaPassagens").innerHTML += "<br><span>" + json.members[k].name + "</div>";
-            }
+    var hospedagens = new Array();
+    var comprasHospedagens = new Array();
+    var ticketsHospedagens = new Array();
+
+    var viagens = new Array();
+    var compraViagens = new Array();
+    var ticketsViagens = new Array();
+
+    function BaixaLocais() {
+        $.getJSON("http://localhost:64421/api/Local", function (json) {
+            for (var k in json)
+                locais[k] = json[k];
+            document.getElementById("Teste").innerHTML += locais[0].Nome;
         });
-    }*/
+    }
 
-    function ListaLocais() {
-        $.getJSON("http://localhost:64421/api/BaseDeDados", function (json) {
-            //$("#ListaLocais").text(json[0].Id);
-            $("#ListaLocais").text(json.locais[0].Id);
-
-
-            /*
-            for (var k in json.members) {
-                document.getElementById("ListaPassagens").innerHTML += "<br><span>" + json.members[k].name + "</div>";
-            }*/
+    function BaixaHospedagens() {
+        $.getJSON("http://localhost:64421/api/Hospedagem", function (json) {
+            for (var k in json)
+                hospedagens[k] = json[k];
+            document.getElementById("Teste").innerHTML += hospedagens[0].QuartosDisponiveis;
         });
-    } 
+    }
+
+    function BaixaViagens() {
+        $.getJSON("http://localhost:64421/api/Viagem", function (json) {
+            for (var k in json)
+                viagens[k] = json[k];
+            document.getElementById("Teste").innerHTML += viagens[0].QtdDisponivel;
+        });
+    }
+
+    function BaixaDados() {
+        BaixaLocais();
+        BaixaHospedagens();
+        BaixaViagens();
+    }
+ 
 </script>
 
-<body onload="ListaLocais()">
+<body onload="BaixaDados()">
 
     <div>Número de passagens disponíveis:<span id="NumeroDePassagens"></span></div>
 
-    <div id="ListaPassagens"></div>
-    <div id="ListaLocais"></div>
+    <div id="Teste"></div>
 
 </body>
 

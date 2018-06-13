@@ -15,8 +15,7 @@ namespace Web.Controllers
         public Hospedagem[] RetornaHospedagens() {
             return hospedagens;
         }
-
-
+        
         // GET: api/Hospedagem
         public IEnumerable<Hospedagem> Get()
         {
