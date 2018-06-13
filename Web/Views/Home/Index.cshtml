@@ -24,7 +24,9 @@
         $.getJSON("http://localhost:64421/api/Hospedagem", function (json) {
             for (var k in json)
                 hospedagens[k] = json[k];
+
             document.getElementById("Teste").innerHTML += "Hospedagens " + hospedagens[0].QuartosDisponiveis + "(" + hospedagens.length + ")<br>";
+            
         });
     }
 
@@ -37,21 +39,29 @@
     }
 
     function BaixaDados() {
+        
         BaixaLocais();
         BaixaHospedagens();
         BaixaViagens();
 
+        wait(8000);
+        document.getElementById("Hospedagens").innerHTML += "OI";
+
+
+        /***************************************************************/
         /*
         for (i = 0; i < hospedagens.length; i++) {
             document.getElementById("Hospedagens").innerHTML += "OI";
         }*/
 
+        /*
         document.getElementById("Hospedagens").innerHTML += "Hospedagens:" + window.hospedagens.length;
-       
+        */
 
         //Ajusta as ofertas de Hospedagens
+        
         /*
-        for (i in hospedagens) {
+        for (var i in hospedagens) {
 
             var hospedagemAtual = hospedagens[i];
 
