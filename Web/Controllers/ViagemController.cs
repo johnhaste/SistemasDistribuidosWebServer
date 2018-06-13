@@ -10,7 +10,7 @@ namespace Web.Controllers
 {
     public class ViagemController : ApiController
     {
-        Viagem[] viagens = new Viagem().RetornaViagens();
+        public static Viagem[] viagens = new Viagem().RetornaViagens();
 
         public Viagem[] RetornaViagens()
         {

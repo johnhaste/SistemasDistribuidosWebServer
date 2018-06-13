@@ -43,29 +43,23 @@
         BaixaLocais();
         BaixaHospedagens();
         BaixaViagens();
+       
+    }
+
+    function Comprar(idHospedagemAtual) {
+
+        var qtdPessoas = document.getElementById("QtdPessoasHospedagem" + idHospedagemAtual).value;
+        alert(qtdPessoas + " pessoas compraram para hospedagem " + idHospedagemAtual);
+
+        $.ajax({
+            url: 'http://localhost:64421/api/Hospedagem/' + idHospedagemAtual + '/' + qtdPessoas,
+            type: 'GET',
+            success: function (response) {
+                document.getElementById("quartosDisponiveis" + idHospedagemAtual).innerHTML = response.QuartosDisponiveis;
+                document.getElementById("resposta" + idHospedagemAtual).innerHTML = "Sucesso!";
+            }
+        });
         
-        /***************************************************************/
-        /*
-        for (i = 0; i < hospedagens.length; i++) {
-            document.getElementById("Hospedagens").innerHTML += "OI";
-        }*/
-
-        /*
-        document.getElementById("Hospedagens").innerHTML += "Hospedagens:" + window.hospedagens.length;
-        */
-
-        //Ajusta as ofertas de Hospedagens
-        
-        /*
-        for (var i in hospedagens) {
-
-            var hospedagemAtual = hospedagens[i];
-
-            var nomeLocal = locais.find(item == item.Id === hospedagemAtual.Id);
-
-            document.getElementById("Hospedagens").innerHTML += "<span>Local:" + nomeLocal + "</span><br>";
-
-        }*/
     }
 
     function MostraDados() {
@@ -81,7 +75,12 @@
                 }
             }
 
-            document.getElementById("Hospedagens").innerHTML += "<span> Local: " + localAtual + "<br> Quartos Disponíveis:" + hospedagemAtual.QuartosDisponiveis + "<br><br>";
+            document.getElementById("Hospedagens").innerHTML += "<div> Id:" + hospedagemAtual.Id +
+                "<br> Local: " + localAtual +
+                "<br> Quartos Disponíveis: <span id='quartosDisponiveis" + hospedagemAtual.Id + "'>" + hospedagemAtual.QuartosDisponiveis + "</span>" +
+                "<br> Pessoas: <input id='QtdPessoasHospedagem"+ hospedagemAtual.Id +"'>" + 
+                "<br> <button id = '" + hospedagemAtual.Id + "' onClick='Comprar(this.id)'>Finalizar Compra</button>" +
+                "<br> <span id='resposta" + hospedagemAtual.Id + "'></div > <br>";
 
         }
         
@@ -93,12 +92,13 @@
 
     <div>Número de passagens disponíveis:<span id="NumeroDePassagens"></span></div>
 
-    <h1>Teste</h1>
-    <div id="Teste"></div>
-    
-    <h1>Hospedagens</h1>
+    <h2>Hospedagens</h2>
     <button onclick="MostraDados()">Mostrar Dados</button>
     <div id="Hospedagens"></div>
+    
+    <hr />
+    <div id="Teste"></div>
+
 
 </body>
 

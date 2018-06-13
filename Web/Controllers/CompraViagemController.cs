@@ -11,7 +11,7 @@ namespace Web.Controllers
     public class CompraViagemController : ApiController
     {
 
-        CompraViagem[] comprasViagens = new CompraViagem().RetornaComprasViagens();
+        public static CompraViagem[] comprasViagens = new CompraViagem().RetornaComprasViagens();
 
         public CompraViagem[] RetornaComprasViagens()
         {

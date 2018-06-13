@@ -10,7 +10,7 @@ namespace Web.Controllers
 {
     public class CompraHospedagemController : ApiController
     {
-        CompraHospedagem[] comprasHospedagens = new CompraHospedagem().RetornaComprasHospedagens();
+        public static CompraHospedagem[] comprasHospedagens = new CompraHospedagem().RetornaComprasHospedagens();
 
         public CompraHospedagem[] RetornaComprasHospedagens()
         {
