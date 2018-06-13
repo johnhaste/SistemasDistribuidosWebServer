@@ -10,17 +10,18 @@ namespace Web.Controllers
 {
     public class CompraHospedagemController : ApiController
     {
-        public static CompraHospedagem[] comprasHospedagens = new CompraHospedagem().RetornaComprasHospedagens();
+        public static List<CompraHospedagem> comprasHospedagens = new CompraHospedagem().RetornaComprasHospedagens().ToList();
+        public static List<TicketHospedagem> ticketHospedagens = new List<TicketHospedagem>();
 
-        public CompraHospedagem[] RetornaComprasHospedagens()
+        public List<CompraHospedagem> RetornaComprasHospedagens()
         {
             return comprasHospedagens;
         }
 
         // GET: api/CompraHospedagem
-        public IEnumerable<string> Get()
+        public IEnumerable<CompraHospedagem> Get()
         {
-            return new string[] { "value1", "value2" };
+            return comprasHospedagens;
         }
 
         // GET: api/CompraHospedagem/5
@@ -29,8 +30,38 @@ namespace Web.Controllers
             return "value";
         }
 
-        // POST: api/CompraHospedagem
-        public void Post([FromBody]string value)
+
+        //api/CompraHospedagem/1/2/3/4/5/1
+        [HttpGet]
+        [Route("api/CompraHospedagem/{numQuartos}/{qtdPessoas}/{parcelamento}/{numeroCartao}/{codCartao}/{idHospedagem}")]
+        public CompraHospedagem Get(int numQuartos,int qtdPessoas, int parcelamento, int numeroCartao, int codCartao, int idHospedagem)
+        {
+            CompraHospedagem compraHospedagemAtual = new CompraHospedagem();
+            //string[] clientes = nomeClientes.Split(',');
+
+            if (comprasHospedagens.Count > 0)
+            {
+                compraHospedagemAtual.Id = comprasHospedagens.Last().Id + 1;
+            }
+            else
+            {
+                compraHospedagemAtual.Id = 1;
+            }
+
+            compraHospedagemAtual.NumQuartos = numQuartos;
+            compraHospedagemAtual.QtdPessoas = qtdPessoas;
+            compraHospedagemAtual.Parcelamento = parcelamento;
+            compraHospedagemAtual.NumeroCartao = numeroCartao;
+            compraHospedagemAtual.CodCartao = codCartao;
+            compraHospedagemAtual.IdHospedagem = idHospedagem;
+
+            comprasHospedagens.Add(compraHospedagemAtual);
+
+            return compraHospedagemAtual;
+        }
+
+            // POST: api/CompraHospedagem
+            public void Post([FromBody]string value)
         {
         }
 

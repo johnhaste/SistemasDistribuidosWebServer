@@ -15,7 +15,7 @@ namespace Web.Controllers
         public static Object[] locais = new LocalController().RetornaLocais();
 
         public static Object[] hospedagens = new HospedagemController().RetornaHospedagens();
-        public static Object[] compraHospedagens = new CompraHospedagemController().RetornaComprasHospedagens();
+        //public static Object[] compraHospedagens = new CompraHospedagemController().RetornaComprasHospedagens();
         //public static Object[] ticketHospedagens = new HospedagemController().retornaTicketsHospedagens();
 
         public static Object[] viagens = new ViagemController().RetornaViagens();

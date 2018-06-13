@@ -20,12 +20,13 @@ namespace TourismWeb.Models
         }
     
         public int Id { get; set; }
-        public System.DateTime DataEntrada { get; set; }
-        public System.DateTime DataSaida { get; set; }
+        //public System.DateTime DataEntrada { get; set; }
+        //public System.DateTime DataSaida { get; set; }
         public int NumQuartos { get; set; }
         public int QtdPessoas { get; set; }
         public int Parcelamento { get; set; }
-        public string NumeroCartao { get; set; }
+        public int NumeroCartao { get; set; }
+        public int CodCartao { get; set; }
         public int IdHospedagem { get; set; }
 
         public CompraHospedagem[] RetornaComprasHospedagens()
