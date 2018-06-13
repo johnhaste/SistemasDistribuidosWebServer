@@ -1,19 +1,22 @@
 ﻿<script>
+    //Locais
     var locais = new Array();
 
+    //Hospedagens
     var hospedagens = new Array();
     var comprasHospedagens = new Array();
     var ticketsHospedagens = new Array();
 
+    //Viagens
     var viagens = new Array();
     var compraViagens = new Array();
     var ticketsViagens = new Array();
-
+    
     function BaixaLocais() {
         $.getJSON("http://localhost:64421/api/Local", function (json) {
             for (var k in json)
                 locais[k] = json[k];
-            document.getElementById("Teste").innerHTML += locais[0].Nome;
+            document.getElementById("Teste").innerHTML += "Locais " + locais[0].Nome + "(" + locais.length + ") < br > ";
         });
     }
 
@@ -21,7 +24,7 @@
         $.getJSON("http://localhost:64421/api/Hospedagem", function (json) {
             for (var k in json)
                 hospedagens[k] = json[k];
-            document.getElementById("Teste").innerHTML += hospedagens[0].QuartosDisponiveis;
+            document.getElementById("Teste").innerHTML += "Hospedagens " + hospedagens[0].QuartosDisponiveis + "(" + hospedagens.length + ")<br>";
         });
     }
 
@@ -29,7 +32,7 @@
         $.getJSON("http://localhost:64421/api/Viagem", function (json) {
             for (var k in json)
                 viagens[k] = json[k];
-            document.getElementById("Teste").innerHTML += viagens[0].QtdDisponivel;
+            document.getElementById("Teste").innerHTML += "Viagens " + viagens[0].QtdDisponivel + "(" + viagens.length + ")<br>";
         });
     }
 
@@ -37,6 +40,26 @@
         BaixaLocais();
         BaixaHospedagens();
         BaixaViagens();
+
+        /*
+        for (i = 0; i < hospedagens.length; i++) {
+            document.getElementById("Hospedagens").innerHTML += "OI";
+        }*/
+
+        document.getElementById("Hospedagens").innerHTML += "Hospedagens:" + window.hospedagens.length;
+       
+
+        //Ajusta as ofertas de Hospedagens
+        /*
+        for (i in hospedagens) {
+
+            var hospedagemAtual = hospedagens[i];
+
+            var nomeLocal = locais.find(item == item.Id === hospedagemAtual.Id);
+
+            document.getElementById("Hospedagens").innerHTML += "<span>Local:" + nomeLocal + "</span><br>";
+
+        }*/
     }
  
 </script>
@@ -45,7 +68,11 @@
 
     <div>Número de passagens disponíveis:<span id="NumeroDePassagens"></span></div>
 
+    <h1>Teste</h1>
     <div id="Teste"></div>
+    
+    <h1>Hospedagens</h1>
+    <div id="Hospedagens"></div>
 
 </body>
 
