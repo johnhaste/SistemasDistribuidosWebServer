@@ -43,11 +43,7 @@
         BaixaLocais();
         BaixaHospedagens();
         BaixaViagens();
-
-        wait(8000);
-        document.getElementById("Hospedagens").innerHTML += "OI";
-
-
+        
         /***************************************************************/
         /*
         for (i = 0; i < hospedagens.length; i++) {
@@ -71,6 +67,25 @@
 
         }*/
     }
+
+    function MostraDados() {
+        
+        for (var i in hospedagens) {
+
+            var hospedagemAtual = hospedagens[i];
+            var localAtual = "";
+
+            for (var k in locais) {
+                if (hospedagemAtual.IdLocal == locais[k].Id) {
+                    localAtual = locais[k].Nome;
+                }
+            }
+
+            document.getElementById("Hospedagens").innerHTML += "<span> Local: " + localAtual + "<br> Quartos Disponíveis:" + hospedagemAtual.QuartosDisponiveis + "<br><br>";
+
+        }
+        
+    }
  
 </script>
 
@@ -82,6 +97,7 @@
     <div id="Teste"></div>
     
     <h1>Hospedagens</h1>
+    <button onclick="MostraDados()">Mostrar Dados</button>
     <div id="Hospedagens"></div>
 
 </body>
