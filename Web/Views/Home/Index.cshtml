@@ -1,4 +1,5 @@
 ﻿<script>
+
     //Locais
     var locais = new Array();
 
@@ -46,24 +47,8 @@
        
     }
 
-    function Comprar(idHospedagemAtual) {
-
-        var qtdPessoas = document.getElementById("QtdPessoasHospedagem" + idHospedagemAtual).value;
-        alert(qtdPessoas + " pessoas compraram para hospedagem " + idHospedagemAtual);
-
-        $.ajax({
-            url: 'http://localhost:64421/api/Hospedagem/' + idHospedagemAtual + '/' + qtdPessoas,
-            type: 'GET',
-            success: function (response) {
-                document.getElementById("quartosDisponiveis" + idHospedagemAtual).innerHTML = response.QuartosDisponiveis;
-                document.getElementById("resposta" + idHospedagemAtual).innerHTML = "Sucesso!";
-            }
-        });
-        
-    }
-
     function MostraDados() {
-        
+
         for (var i in hospedagens) {
 
             var hospedagemAtual = hospedagens[i];
@@ -78,51 +63,102 @@
             document.getElementById("Hospedagens").innerHTML += "<div> Id:" + hospedagemAtual.Id +
                 "<br> Local: " + localAtual +
                 "<br> Quartos Disponíveis: <span id='quartosDisponiveis" + hospedagemAtual.Id + "'>" + hospedagemAtual.QuartosDisponiveis + "</span>" +
-                "<br> Pessoas: <input id='QtdPessoasHospedagem"+ hospedagemAtual.Id +"'>" + 
-                "<br> <button id = '" + hospedagemAtual.Id + "' onClick='Comprar(this.id)'>Finalizar Compra</button>" +
-                "<br> <span id='resposta" + hospedagemAtual.Id + "'></div > <br>";
+                "<br> Pessoas: <input id='QtdPessoasHospedagem" + hospedagemAtual.Id + "'>" +
+                "<br> <button id = '" + hospedagemAtual.Id + "' onClick='ComprarHospedagem(this.id)'>Finalizar Compra</button>" +
+                "<br> <span id='respostaHospedagem" + hospedagemAtual.Id + "'></div > <br>";
 
         }
+
+        for (var i in viagens) {
+
+            var viagemAtual = viagens[i];
+            var LocalOrigem = "";
+            var LocalDestino = "";
+
+            for (var k in locais) {
+                if (viagemAtual.IdLocalOrigem == locais[k].Id) {
+                    LocalOrigem = locais[k].Nome;
+                }
+                if (viagemAtual.IdLocalDestino == locais[k].Id) {
+                    LocalDestino = locais[k].Nome;
+                }
+            }
+
+            document.getElementById("Viagens").innerHTML += "<div> Id:" + viagemAtual.Id +
+                "<br> Origem: " + LocalOrigem +
+                "<br> Destino: " + LocalDestino + 
+                "<br> Passagens Disponíveis: <span id='passagensDisponiveis" + viagemAtual.Id + "'>" + viagemAtual.QtdDisponivel + "</span>" +
+                "<br> Pessoas: <input id='QtdPessoasViagem" + viagemAtual.Id + "'>" +
+                "<br> <button id = '" + viagemAtual.Id + "' onClick='ComprarViagem(this.id)'>Finalizar Compra</button>" +
+                "<br> <span id='respostaViagem" + viagemAtual.Id + "'></div > <br>";
+
+        }
+
+    }
+
+    function ComprarHospedagem(idHospedagemAtual) {
+
+        var qtdPessoas = document.getElementById("QtdPessoasHospedagem" + idHospedagemAtual).value;
+        //alert(qtdPessoas + " pessoas compraram para hospedagem " + idHospedagemAtual);
+
+        $.ajax({
+            url: 'http://localhost:64421/api/Hospedagem/' + idHospedagemAtual + '/' + qtdPessoas,
+            type: 'GET',
+            success: function (response) {
+
+                if (response == document.getElementById("quartosDisponiveis" + idHospedagemAtual).innerHTML) {
+                    document.getElementById("quartosDisponiveis" + idHospedagemAtual).innerHTML = response;
+                    document.getElementById("respostaHospedagem" + idHospedagemAtual).innerHTML = "Não foi possível comprar o número desejado";
+                } else {
+                    document.getElementById("quartosDisponiveis" + idHospedagemAtual).innerHTML = response;
+                    document.getElementById("respostaHospedagem" + idHospedagemAtual).innerHTML = "Sucesso";
+                }
+                
+            }
+        });
         
     }
+
+    function ComprarViagem(idViagemAtual) {
+
+        var qtdPessoas = document.getElementById("QtdPessoasViagem" + idViagemAtual).value;
+        //alert(qtdPessoas + " pessoas compraram para viagem " + idViagemAtual);
+        ]
+        $.ajax({
+            url: 'http://localhost:64421/api/Viagem/' + idViagemAtual + '/' + qtdPessoas,
+            type: 'GET',
+            success: function (response) {
+
+                if (response == document.getElementById("passagensDisponiveis" + idViagemAtual).innerHTML) {
+                    document.getElementById("passagensDisponiveis" + idViagemAtual).innerHTML = response;
+                    document.getElementById("respostaViagem" + idViagemAtual).innerHTML = "Não foi possível comprar o número desejado";
+                } else {
+                    document.getElementById("passagensDisponiveis" + idViagemAtual).innerHTML = response;
+                    document.getElementById("respostaViagem" + idViagemAtual).innerHTML = "Sucesso";
+                }
+
+            }
+        });
+
+    }
+
+    
  
 </script>
 
 <body onload="BaixaDados()">
 
-    <div>Número de passagens disponíveis:<span id="NumeroDePassagens"></span></div>
+    <button class="btn-primary" onclick="MostraDados()">Mostrar Dados</button>
 
     <h2>Hospedagens</h2>
-    <button onclick="MostraDados()">Mostrar Dados</button>
     <div id="Hospedagens"></div>
-    
+    <hr />
+
+    <h2>Viagens</h2>
+    <div id="Viagens"></div>
+
     <hr />
     <div id="Teste"></div>
 
 
 </body>
-
-<!--<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>-->

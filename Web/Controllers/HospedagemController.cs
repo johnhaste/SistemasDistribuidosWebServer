@@ -10,6 +10,7 @@ namespace Web.Controllers
 {
     public class HospedagemController : ApiController
     {
+
         public static Hospedagem [] hospedagens = new Hospedagem().RetornaHospedagens();
 
         public Hospedagem[] RetornaHospedagens() {
@@ -31,14 +32,17 @@ namespace Web.Controllers
         // Reduz quartos disponíveis GET: api/Hospedagem/1/2
         [HttpGet]
         [Route("api/Hospedagem/{id}/{quartos}")]
-        public Hospedagem Get(int id, int quartos)
+        public int Get(int id, int quartos)
         {
-            hospedagens.SingleOrDefault(i => i.Id == id).QuartosDisponiveis -= quartos;
 
-            return hospedagens.SingleOrDefault(i => i.Id == id);
+            if (hospedagens.SingleOrDefault(i => i.Id == id).QuartosDisponiveis >= quartos)
+            {
+                hospedagens.SingleOrDefault(i => i.Id == id).QuartosDisponiveis -= quartos;
+            }
+           
+            return hospedagens.SingleOrDefault(i => i.Id == id).QuartosDisponiveis;
         }
-
-
+        
         // POST: api/Hospedagem
         public void Post([FromBody]string value)
         {

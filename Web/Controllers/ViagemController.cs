@@ -29,6 +29,20 @@ namespace Web.Controllers
             return viagens.SingleOrDefault(i => i.Id == id);
         }
 
+        // Reduz as passagens disponíveis GET: api/Viagem/1/2
+        [HttpGet]
+        [Route("api/Viagem/{id}/{passagens}")]
+        public int Get(int id, int passagens)
+        {
+
+            if (viagens.SingleOrDefault(i => i.Id == id).QtdDisponivel >= passagens)
+            {
+                viagens.SingleOrDefault(i => i.Id == id).QtdDisponivel -= passagens;
+            }
+
+            return viagens.SingleOrDefault(i => i.Id == id).QtdDisponivel;
+        }
+
         // POST: api/Viagem
         public void Post([FromBody]string value)
         {

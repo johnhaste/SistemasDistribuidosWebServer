@@ -22,12 +22,6 @@ namespace Web
                 defaults: new { id = RouteParameter.Optional }
             );
             
-            config.Routes.MapHttpRoute(
-                name: "ApiWithAction",
-                routeTemplate: "api/{controller}/{id}/{value}",
-                defaults: new { id = RouteParameter.Optional, value = RouteParameter.Optional }
-            );
-            
         }
     }
 }
